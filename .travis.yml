@@ -1,11 +1,15 @@
 language: python
 
-python:
-  - 2.7
+matrix:
+  include:
+    - python: 2.7
+    - python: 3.6
+    - python: 3.7     # see: https://github.com/travis-ci/travis-ci/issues/9815
+      dist: xenial
+      sudo: true
 
 install:
-  - pip install pipenv
-  - pipenv install -e .
+  - pip install -e .
 
 script:
-  - tests.sh
+  - ./tests.sh

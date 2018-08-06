@@ -46,7 +46,7 @@ export UWSGI_MODULE="app:app"
 export UWSGIMON_FREQ=".5"
 export UWSGIMON_UDP="127.0.0.1:${PORT_UDP}"
 
-pipenv run uwsgimon-launcher &
+uwsgimon-launcher &
 _UWSGI_PID="$!"
 
 cleanup () {
@@ -55,7 +55,7 @@ cleanup () {
 }
 
 # assert req=0
-pipenv run python udp-server.py "$PORT_UDP" "req=0"
+python udp-server.py "$PORT_UDP" "req=0"
 status="$?"
 if [ $status -ne 0 ]; then
   cleanup
@@ -66,7 +66,7 @@ fi
 curl -sSL "http://127.0.0.1:${PORT_UWSGI}"
 curl -sSL "http://127.0.0.1:${PORT_UWSGI}"
 
-pipenv run python udp-server.py "$PORT_UDP" "req=2"
+python udp-server.py "$PORT_UDP" "req=2"
 status="$?"
 if [ $status -ne 0 ]; then
   cleanup
