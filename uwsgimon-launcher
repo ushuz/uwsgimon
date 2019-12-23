@@ -108,6 +108,10 @@ def prepare_uwsgi_environment():
     options.setdefault('stats', UWSGIMON_STATS)
     options.setdefault('memory-report', True)
 
+    # # remap SIGTERM to gracefully_kill_them_all() to avoid brutal kill
+    # # ref: https://github.com/unbit/uwsgi/issues/849#issuecomment-118869386
+    # options.setdefault('hook-master-start', 'unix_signal:15 gracefully_kill_them_all')
+
     for k, v in convert_options_to_env(options):
         os.environ.setdefault(k, v)
 
